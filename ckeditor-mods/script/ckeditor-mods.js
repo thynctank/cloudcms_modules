@@ -127,7 +127,7 @@ define(function(require, exports, module) {
     CKEDITOR.config.pasteFromWordRemoveStyles = true;
     CKEDITOR.config.pasteFromWordRemoveFontStyles = true;
     CKEDITOR.config.entities_processNumerical = true;
-    CKEDITOR.config.disallowedContent = 'script; style; *[on*, *[style*, border, width, height, cellpadding, valign, cellspacing, font, style]; *{*}';
+    CKEDITOR.config.disallowedContent = 'style; *[on*, *[style*, border, width, height, cellpadding, valign, cellspacing, font, style]; *{*}';
 
     CKEDITOR.plugins.add('globalContent', {
         init: function(editor) {
