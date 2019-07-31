@@ -26,15 +26,15 @@ define(function(require, exports, module) {
 
           function associateModal (currentDocId, slotDocId) {
             var branch = Ratchet.observable('branch').get()
-            Chain(branch).queryNodes({_doc: currentDocId}).trap(genericErrorLoggerHalter)
+            Chain(branch).trap(genericErrorLoggerHalter).queryNodes({_doc: currentDocId})
             .then(function () {
               var docs = this.asArray()
               if (docs.length) {
                 var currentDoc = Chain(docs[0])
-                currentDoc.associations({type: paragraphModalAssociationType}).then(function() {
+                currentDoc.trap(genericErrorLoggerHalter).associations({type: paragraphModalAssociationType}).then(function() {
                     var assocCount = this.asArray().length
                     if (0 === assocCount) {
-                      currentDoc.associate(slotDocId, paragraphModalAssociationType)
+                      currentDoc.trap(genericErrorLoggerHalter).associate(slotDocId, paragraphModalAssociationType)
                     }
                   })
               }
@@ -43,12 +43,12 @@ define(function(require, exports, module) {
 
           function removeModalAssociations (currentDocId) {
             var branch = Ratchet.observable('branch').get()
-              Chain(branch).queryNodes({_doc: currentDocId}).trap(genericErrorLoggerHalter)
+              Chain(branch).trap(genericErrorLoggerHalter).queryNodes({_doc: currentDocId})
               .then(function () {
                 var docs = this.asArray()
                 if (docs.length) {
                   var currentDoc = Chain(docs[0])
-                  currentDoc.associations({type: paragraphModalAssociationType}).each(function(assocId, assoc) {
+                  currentDoc.trap(genericErrorLoggerHalter).associations({type: paragraphModalAssociationType}).each(function(assocId, assoc) {
                     Chain(assoc).del()
                   })
                 }
